@@ -13,7 +13,11 @@ id connect ()
 	if(char const* var = getenv("DIALOG_PORT_NAME"))
 		portName = @(var);
 
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	// TODO: Migrate NSConnection IPC to NSXPCConnection
 	id proxy = [NSConnection rootProxyForConnectionWithRegisteredName:portName host:nil];
+	#pragma clang diagnostic pop
 	[proxy setProtocolForProxy:@protocol(DialogServerProtocol)];
 	return proxy;
 }

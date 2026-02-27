@@ -1,5 +1,6 @@
 #import "../Dialog2.h"
 #import "../TMDCommand.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 /*
 "$DIALOG" help filepanel
@@ -56,7 +57,12 @@
 			fprintf(stderr, "no single string or plist array passed as value for option '--allowedFileTypes'\n");
 
 		if(types)
-			[savePanel setAllowedFileTypes:types];
+		{
+			NSMutableArray<UTType*>* contentTypes = [NSMutableArray array];
+			for(NSString* ext in types)
+				[contentTypes addObject:[UTType typeWithFilenameExtension:ext] ?: UTTypeItem];
+			savePanel.allowedContentTypes = contentTypes;
+		}
 	}
 
 	if(args[@"allowsOtherFileTypes"])

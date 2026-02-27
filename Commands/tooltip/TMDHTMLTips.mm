@@ -53,7 +53,6 @@ NSString* const TMDTooltipPreferencesIdentifier = @"TM Tooltip";
 		[self setIgnoresMouseEvents:YES];
 
 		WKWebViewConfiguration* webConfig = [[WKWebViewConfiguration alloc] init];
-		webConfig.preferences.javaScriptEnabled = YES;
 
 		webView = [[WKWebView alloc] initWithFrame:NSZeroRect configuration:webConfig];
 		webView.navigationDelegate = self;

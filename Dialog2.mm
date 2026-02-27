@@ -14,7 +14,11 @@
 @end
 
 @interface Dialog2 : NSObject <DialogServerProtocol>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+// TODO: Migrate NSConnection IPC to NSXPCConnection (fundamental architecture change)
 @property (nonatomic) NSConnection* connection;
+#pragma clang diagnostic pop
 - (id)initWithPlugInController:(id <TMPlugInController>)aController;
 @end
 
@@ -26,6 +30,8 @@
 	NSApp = NSApplication.sharedApplication;
 	if(self = [self init])
 	{
+#pragma clang diagnostic push
+		#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		_connection = [NSConnection new];
 		[_connection setRootObject:self];
 
@@ -44,6 +50,7 @@
 
 			setenv("DIALOG_PORT_NAME", [portName UTF8String], 1);
 		}
+		#pragma clang diagnostic pop
 	}
 
 	return self;
